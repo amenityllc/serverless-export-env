@@ -9,6 +9,7 @@ const collectFunctionEnvVariables = require("./lib/collectFunctionEnvVariables")
 const setEnvVariables = require("./lib/setEnvVariables");
 const collectOfflineEnvVariables = require("./lib/collectOfflineEnvVariables");
 const resolveCloudFormationEnvVariables = require("./lib/resolveCloudFormationEnvVariables");
+const collectResorucesOutputs = require("./lib/collectResorucesOutputs");
 const transformEnvVarsToString = require("./lib/transformEnvVarsToString");
 
 /**
@@ -62,6 +63,10 @@ class ExportEnv {
 			// collect global environment variables
 			const globalEnvironment = this.serverless.service.provider.environment;
 			_.assign(envVars, globalEnvironment);
+
+			// collect resoruces output variables
+			const resourcesOutputs = collectResorucesOutputs(this.serverless);
+			_.assign(envVars, resourcesOutputs);
 
 			// collect environment variables of functions
 			const functionEnvironment = collectFunctionEnvVariables(this.serverless);

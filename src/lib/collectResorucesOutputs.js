@@ -15,7 +15,8 @@ function collectResorucesOutputs(serverless) {
 
 	_.each(_.keys(outputs), key => {
 		 const value = outputs[key].Value;
-		 let envVar ={[key] : value};
+		 let envVarKey  = _.toUpper(_.snakeCase(key));
+		 let envVar ={[envVarKey] : value};
 	 	_.assign(envVars, envVar);
 	});
 
